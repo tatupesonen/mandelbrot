@@ -1,6 +1,7 @@
 # Mandelbrot
 
 ![](./fractal.png)
+![](./fractal2.png)
 
 ## Running the application
 
