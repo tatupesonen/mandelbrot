@@ -1,6 +1,7 @@
 # Mandelbrot
 
 ![](./fractal.png)
+^ this image is around 87MB, open it in a separate tab to zoom.
 
 ## Running the application
 
