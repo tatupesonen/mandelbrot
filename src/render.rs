@@ -33,7 +33,7 @@ pub fn render(
 pub fn write_image(filename: &str, pixels: &[u8], bounds: (usize, usize)) -> ImageResult<()> {
     let output = File::create(filename)?;
     let encoder = PngEncoder::new(output);
-    let result = encoder.write_image(&pixels, bounds.0 as u32, bounds.1 as u32, ColorType::L8)?;
+    encoder.write_image(&pixels, bounds.0 as u32, bounds.1 as u32, ColorType::L8)?;
 
     // Print image size
     let bytes = std::fs::metadata(filename)?.len();

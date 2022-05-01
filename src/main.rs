@@ -23,8 +23,8 @@ struct Args {
 }
 
 fn main() {
-    let THREADS = num_cpus::get();
-    println!("Using {} threads...", THREADS);
+    let threads = num_cpus::get();
+    println!("Using {} threads...", threads);
 
     let args = Args::parse();
     let width: usize = args.width;
@@ -32,7 +32,7 @@ fn main() {
     let top_left = parser::parse_complex(&args.top_left).unwrap();
     let bottom_right = parser::parse_complex(&args.bottom_right).unwrap();
 
-    let rows_per_band = bounds.1 / THREADS + 1;
+    let rows_per_band = bounds.1 / threads + 1;
 
     let mut pixels = vec![0; bounds.0 * bounds.1];
     let bands: Vec<&mut [u8]> = pixels.chunks_mut(rows_per_band * bounds.0).collect();
