@@ -8,8 +8,8 @@ mod set;
 #[clap(author, version, about, long_about = None)]
 struct Args {
     /// Resolution
-    #[clap(short, long, default_value = "1000x750")]
-    resolution: String,
+    #[clap(short, long, default_value_t = 36000)]
+    width: usize,
 
     /// Coordinates
     #[clap(short, long, allow_hyphen_values(true), default_value = "-1.2,0.35")]
@@ -27,7 +27,8 @@ fn main() {
     println!("Using {} threads...", THREADS);
 
     let args = Args::parse();
-    let bounds: (usize, usize) = parser::parse_pair(&args.resolution, "x").unwrap();
+    let width: usize = args.width;
+    let bounds = (width, (width as f64 / (4.0 / 3.0)) as usize);
     let top_left = parser::parse_complex(&args.top_left).unwrap();
     let bottom_right = parser::parse_complex(&args.bottom_right).unwrap();
 
@@ -51,7 +52,6 @@ fn main() {
             );
 
             spawner.spawn(move |_| {
-                println!("Spawned a new render thread");
                 render::render(band, band_bounds, band_upper_left, band_lower_right);
             });
         }
