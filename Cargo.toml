@@ -1,0 +1,15 @@
+[package]
+name = "mandelbrot"
+author = "Tatu Pesonen"
+description = "Following Programming Rust"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+num = "0.4"
+clap = { version = "3.1.14", features = ["derive"]}
+image = "0.24.2"
+crossbeam = "0.8.1"
+num_cpus = "1.13.1"
