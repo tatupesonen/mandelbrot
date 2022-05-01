@@ -1,3 +1,4 @@
+use humansize::{file_size_opts, FileSize};
 use image::codecs::png::PngEncoder;
 use image::{ColorType, ImageEncoder, ImageResult};
 use std::fs::File;
@@ -32,7 +33,14 @@ pub fn render(
 pub fn write_image(filename: &str, pixels: &[u8], bounds: (usize, usize)) -> ImageResult<()> {
     let output = File::create(filename)?;
     let encoder = PngEncoder::new(output);
-    encoder.write_image(&pixels, bounds.0 as u32, bounds.1 as u32, ColorType::L8)?;
+    let result = encoder.write_image(&pixels, bounds.0 as u32, bounds.1 as u32, ColorType::L8)?;
+
+    // Print image size
+    let bytes = std::fs::metadata(filename)?.len();
+    println!(
+        "Finished, image size: {}",
+        bytes.file_size(file_size_opts::CONVENTIONAL).unwrap()
+    );
 
     Ok(())
 }
